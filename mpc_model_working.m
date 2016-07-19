@@ -67,20 +67,61 @@ for k=1:Simlength
     X1=A*X0+B*u+D*Disturb(k);
     dx=(X1(1)-X0(1))/Ts;
     dy=(X1(2)-X0(2))/Ts;
-    %vk=sqrt(dx*dx+dy*dy);
-    %thetak=arctan(dy/dx);
+%     vk=sqrt(dx*dx+dy*dy);
+%     thetak=atan(dy/dx);
     X0=X1;
     Xhist=[Xhist X0];
     Uhist=[Uhist u];
 end
-
+t=0:Ts:Ts*(Simlength-1);
+figure();
 plot(Xhist);
 hold on;
 plot(Uhist);
 legend('X','U');
 xlim([0 Simlength]);
+% %u
+% figure();
+% subplot(4,1,1);
+% plot(t,Uhist(1,:));
+% ylabel('Velocity');
+% xlabel('Time(s)');
+% title('Delta Velocity');
+% grid on;
+% 
+% subplot(4,1,2);
+% plot(t,Uhist(2,:));
+% ylabel('Angular Velocity');
+% xlabel('Time(s)');
+% title('Delta Angular Velocity');
+% grid on;
+% 
+% % vk thetak
+% t2=0:Ts:Ts*(Simlength);
+% % figure();
+% subplot(4,1,3);
+% plot(t2,VK);
+% ylabel('Velocity');
+% xlabel('Time(s)');
+% title('Velocity');
+% grid on;
+% 
+% subplot(4,1,4);
+% plot(t2,THK,t2,Xhist(3,:));
+% ylabel('Theta');
+% xlabel('Time(s)');
+% title('Theta');
+% grid on;
+
+% state x and y 
 figure();
-plot(Xhist(1,:),Xhist(2,:))
+plot(Xhist(2,:),Xhist(1,:))
+ylabel('y');
+xlabel('X');
+title('Trayectory');
+grid on;
+
+
 
 
 
