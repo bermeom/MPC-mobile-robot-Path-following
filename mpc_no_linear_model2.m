@@ -2,22 +2,24 @@ clc;
 clear all;
 close all;
 % Initial state x(0)
-X0=[0;0;(0*pi)/180];
+%X0=[0;0;(0*pi)/180];
+X0 =[2.3917 ;-1.3973;-1.2586];
 vk=0;
 Ts=0.005;
-thetak=(120*pi)/180;
+%thetak=(120*pi)/180;
+thetak=-1.2586;
 wk=0;
 D=zeros(3,1);
 N=50;
-Xr=[-2 2 atan(1)]';
+Xr=[-2 10 atan(1)]';
 % Xr(3)=(atan((-50-X0(2))/(50-X0(1))));
 % Xr(3)=(atan((Xr(2)-X0(2))/(Xr(1)-X0(1))));
 s=1.5;
 Simlength=(s/Ts);       
 
 % Define cost functionx| and expected disturbances
-Q=[0.001 0 0;0 10000 0;0 0 100000000];
-R=[0.01 0;0 50];
+Q=[0.00001 0 0;0 1 0;0 0 100000000];
+R=[0.01 0;0 100];
 W=ones(1,N)';  % expected demand (this is just an example)
 
 [A B C]=model_system(vk,thetak,Ts);
