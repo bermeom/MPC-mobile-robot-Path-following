@@ -1,0 +1,1 @@
+function [X]=nonlinearModel(A,B,D,u,w,X0);

@@ -2,13 +2,15 @@ clc;
 clear all;
 close all;
 % Initial state x(0)
-X0=[1;0;0.01];
+X0=[0;0;0.001];
 vk=1;
+thetak=0.2;
+vk=0;
 Ts=0.2;
-thetak=0.5;
 D=zeros(3,1);
 N=3;
 Xr=[50 50 0]';
+%Xr(3)=(atan((-50-X0(2))/(-50-X0(1))));
 
 % Define cost function and expected disturbances
 Q=eye(3);
@@ -44,6 +46,13 @@ Simlength=100;
 Xhist=X0;
 Uhist=[];
 Disturb= normrnd(0.5,1,Simlength+N,1); %Longer than simulation for prediction horizon
+figure();
+plot(Xhist(2,:),Xhist(1,:),'b')
+ylabel('y');
+xlabel('X');
+title('Trayectory');
+grid on;
+hold on;
 % Simulation loop
 for k=1:Simlength
     
@@ -72,6 +81,16 @@ for k=1:Simlength
     X0=X1;
     Xhist=[Xhist X0];
     Uhist=[Uhist u];
+    
+%     plot(Xhist(2,:),Xhist(1,:),'b')
+%     hold on;
+%     pause(0.5);
+%     Xpredict=Gx*X0+Gu*UMPC+Gw*W;
+%     Xp=Xpredict(1:3:end);
+%     Yp=Xpredict(2:3:end);
+%     THp=Xpredict(3:3:end);
+%     plot(Yp,Xp,'R')
+
 end
 t=0:Ts:Ts*(Simlength-1);
 figure();
