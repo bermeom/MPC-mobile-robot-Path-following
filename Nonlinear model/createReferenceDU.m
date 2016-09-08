@@ -4,8 +4,8 @@ function [Xr,newi]=createReferenceDU(path,i,X0,B,vk,Ts,N,delta)
       x=path(1,i);
       y=path(2,i);
       R=sqrt((x-X0(1))^2+(y-X0(2))^2);
-      if(R<delta)
-        i=i+1;
+      if(R<delta &&size(path,2)>i)
+        i=i+1
       end
       j=i;
       Xr=[];
@@ -22,11 +22,14 @@ function [Xr,newi]=createReferenceDU(path,i,X0,B,vk,Ts,N,delta)
           if size(path,2) ==j
                nn=N-n+1;
           end
-%           nn=N-n+1;
+%          nn=N-n+1;
           Xr=[Xr;kron(ones(nn,1),[x;y;(atan((y-X0(2))/(x-X0(1))));zeros(size(B,2),1)])];
+          X0(1)=x;
+          X0(2)=y;
+          
           n=n+nn;
           j=j+1;
       end
-      
+     
       newi=i;
 end
